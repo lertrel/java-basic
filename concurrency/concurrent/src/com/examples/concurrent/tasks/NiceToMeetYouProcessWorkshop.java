@@ -1,7 +1,13 @@
+package com.examples.concurrent.tasks;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
+
+import com.examples.concurrent.AbstractTask;
+import com.examples.concurrent.App;
+import com.examples.concurrent.LogHelpers;
+import com.examples.concurrent.TaskException;
 
 public class NiceToMeetYouProcessWorkshop extends AbstractTask {
 
@@ -16,7 +22,7 @@ public class NiceToMeetYouProcessWorkshop extends AbstractTask {
 
         try {
             TimeUnit.SECONDS.sleep(time);
-            LogHelpers.info(logger, "Perform action %s inside %s", action, getClass().getName());
+            LogHelpers.info(logger, "Perform action %s inside %s", action, getClass().getSimpleName());
         } catch (InterruptedException e) {
             LogHelpers.error(logger, e);
         }
@@ -30,14 +36,14 @@ public class NiceToMeetYouProcessWorkshop extends AbstractTask {
 
         var getUserFirstName = CompletableFuture.supplyAsync(() -> {
 
-            waitFor(logger, "getUserFirstName", 3);
+            waitFor(logger, "getUserFirstName", 4);
 
             return "John";
         }, fork);
 
         var getUserLastName = CompletableFuture.supplyAsync(() -> {
 
-            waitFor(logger, "getUserLastName", 2);
+            waitFor(logger, "getUserLastName", 3);
 
             return "Doe";        
         }, fork);
@@ -49,7 +55,7 @@ public class NiceToMeetYouProcessWorkshop extends AbstractTask {
             return f + " " + l;
         }, fork).thenApplyAsync(fullname -> {
 
-            waitFor(logger, "upperCase", 5);
+            waitFor(logger, "upperCase", 1);
 
             return fullname.toUpperCase();
 

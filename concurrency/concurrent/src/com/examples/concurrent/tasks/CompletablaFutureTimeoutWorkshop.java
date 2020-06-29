@@ -1,8 +1,13 @@
+package com.examples.concurrent.tasks;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.logging.Logger;
+
+import com.examples.concurrent.AbstractTask;
+import com.examples.concurrent.LogHelpers;
+import com.examples.concurrent.TaskException;
 
 public class CompletablaFutureTimeoutWorkshop extends AbstractTask {
 

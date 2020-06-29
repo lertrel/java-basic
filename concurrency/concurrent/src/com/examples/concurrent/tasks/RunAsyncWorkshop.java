@@ -1,23 +1,26 @@
+package com.examples.concurrent.tasks;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-public class SupplyAsyncExecutorWorkshop extends AbstractTask {
+import com.examples.concurrent.AbstractTask;
+import com.examples.concurrent.LogHelpers;
+import com.examples.concurrent.TaskException;
 
-    public SupplyAsyncExecutorWorkshop(String name) {
+public class RunAsyncWorkshop extends AbstractTask {
+
+    public RunAsyncWorkshop(String name) {
         super(name);
     }
 
-    public SupplyAsyncExecutorWorkshop() {
+    public RunAsyncWorkshop() {
     }
 
     @Override
     protected void execute(Logger logger) throws TaskException {
 
-        var one = CompletableFuture.supplyAsync(() -> {
+        CompletableFuture<Void> one = CompletableFuture.runAsync(() -> {
 
             try {
                 TimeUnit.SECONDS.sleep(2);
@@ -25,12 +28,10 @@ public class SupplyAsyncExecutorWorkshop extends AbstractTask {
             } catch (InterruptedException e) {
                 LogHelpers.error(logger, e);
             }
-
-            return "Hello, world!!! with Executor";
-        }, App.getTreadPool());
+        });
 
         try {
-            LogHelpers.info(logger, "Result = %s", one.get());
+            one.get();
         } catch (InterruptedException | ExecutionException e) {
             throw new TaskException(this, e);
         }

@@ -1,6 +1,13 @@
+package com.examples.concurrent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import com.examples.concurrent.tasks.CompletablaFutureTimeoutWorkshop;
+import com.examples.concurrent.tasks.NiceToMeetYouProcessWorkshop;
+import com.examples.concurrent.tasks.RunAsyncWorkshop;
+import com.examples.concurrent.tasks.SupplyAsyncExecutorWorkshop;
+import com.examples.concurrent.tasks.SupplyAsyncWorkshop;
 
 public class TaskList {
 
